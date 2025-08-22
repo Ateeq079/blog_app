@@ -1,0 +1,49 @@
+{% extends 'blog/base.html' %} {% block content %}
+<div class="row">
+  <div class="col-md-6 col-12 mx-md-auto mx-3 mt-5 mb-5">
+    <h1 class="fw-bolder">Django Blog</h1>
+    <h5 class="text-muted">A blog about pakistan</h5>
+  </div>
+</div>
+{% for object in object_list %}
+<div class="row">
+  <div class="col-md-6 col-11 mx-md-auto mx-3 mt-5 mb-5">
+    <h3 class="fw-bold">{{object.title}}</h3>
+    <p class="text-muted">{{object.created_date}}</p>
+    <p class="text-muted">{{object.author.username}}</p>
+    {% if object.likes.count == 1 %}
+    <p class="text-muted">Likes {{object.likes.count}}</p>
+    {% else %}
+    <p class="text-muted">Likes {{object.likes.count}}</p>
+    {% endif %}
+    <div class="my-3">{{object.content_field|truncatewords_html:50|safe}}</div>
+    <a href="{% url "detail_article" object.id %}">Read More</a>
+  </div>
+</div>
+{% endfor %}
+<nav>
+  <ul class="pagination">
+    <div class="mx-auto d-flex flex-row mt-5">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a href="?page=1" class="page-link">&laquo; First</a>
+      </li>
+      <li class='page-item'>
+        <a href="?page= {{page_obj.previous_page_number}}" class="page-link">Previous</a>
+      </li>
+      {% endif %}
+      <li class="page-item">
+        <a href="#" class="page-link"> Page {{page_obj.number}}</a>
+      </li>
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a href="?page= {{page_obj.next_page_number}}" class="page-link">Next &raquo; </a>
+      </li>
+      <li class="page-item">
+        <a href="?page={{page_obj.paginator.num_pages}}" class="page-link">Last &raquo;&raquo;</a>
+      </li>
+      {% endif %}
+    </div>
+  </ul>
+</nav>
+{% endblock content %}
