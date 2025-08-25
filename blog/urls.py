@@ -19,6 +19,7 @@ urlpatterns = [
     path('featured/', Featured.as_view(), name="featured"),
     path('upload/', ImageView.image_upload, name='image_upload'),
     path('', include(router.urls)),
+    path('article/<int:pk>/', DetailArticleView.as_view(), name='article_detail'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 if settings.DEBUG:

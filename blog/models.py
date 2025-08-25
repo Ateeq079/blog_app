@@ -25,7 +25,7 @@ class Article(models.Model):
     featured = models.BooleanField(default=False)
     likes = models.ManyToManyField(User, related_name="likes", blank=True)
     categories = models.ManyToManyField(Category, related_name="posts")
-
+    image = models.OneToOneField('ImageModel', on_delete=models.SET_NULL, null=True, blank=True, related_name="article")
 
     def __str__(self):
         return self.title

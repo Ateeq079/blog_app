@@ -1,49 +1,71 @@
-{% extends 'blog/base.html' %} {% block content %}
-<div class="row">
-  <div class="col-md-6 col-12 mx-md-auto mx-3 mt-5 mb-5">
-    <h1 class="fw-bolder">Django Blog</h1>
-    <h5 class="text-muted">A blog about pakistan</h5>
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="container py-4">
+  <div class="row mb-5">
+    <div class="col-lg-8 col-md-10 col-12 mx-auto text-center">
+      <h1 class="fw-bolder display-4 mb-2">Django Blog</h1>
+      <h5 class="text-muted mb-4">A blog about Pakistan</h5>
+    </div>
   </div>
-</div>
-{% for object in object_list %}
-<div class="row">
-  <div class="col-md-6 col-11 mx-md-auto mx-3 mt-5 mb-5">
-    <h3 class="fw-bold">{{object.title}}</h3>
-    <p class="text-muted">{{object.created_date}}</p>
-    <p class="text-muted">{{object.author.username}}</p>
-    {% if object.likes.count == 1 %}
-    <p class="text-muted">Likes {{object.likes.count}}</p>
-    {% else %}
-    <p class="text-muted">Likes {{object.likes.count}}</p>
-    {% endif %}
-    <div class="my-3">{{object.content_field|truncatewords_html:50|safe}}</div>
-    <a href="{% url "detail_article" object.id %}">Read More</a>
+  <div class="row g-4 justify-content-center">
+    {% for object in object_list %}
+      <div class="col-lg-6 col-md-8 col-12">
+        <div class="card shadow-lg border-0 h-100">
+          <div class="position-relative">
+            {% if object.image and object.image.image %}
+              <img src="{{ object.image.image.url }}" alt="{{ object.image.title }}" class="card-img-top img-fluid rounded-top" style="max-height: 250px; object-fit: cover;"/>
+              {% if object.image.title %}
+                <span class="badge bg-primary position-absolute top-0 start-0 m-2 px-3 py-2 shadow" style="font-size: 0.95rem; opacity: 0.92;">{{ object.image.title }}</span>
+              {% endif %}
+            {% else %}
+              <div class="bg-light d-flex align-items-center justify-content-center rounded-top" style="height: 250px;">
+                <span class="text-muted">No Image</span>
+              </div>
+            {% endif %}
+          </div>
+          <div class="card-body d-flex flex-column p-4">
+            <h3 class="fw-bold card-title mb-2 text-center">{{ object.title }}</h3>
+            <div class="d-flex justify-content-center align-items-center text-muted mb-3 gap-3" style="font-size: 0.97rem;">
+              <span><i class="bi bi-person"></i> {{ object.author.username }}</span>
+              <span>&bull;</span>
+              <span><i class="bi bi-calendar"></i> {{ object.created_date }}</span>
+            </div>
+            <div class="mb-2 text-muted text-center" style="font-size: 0.97rem;">
+              👍 {{ object.likes.count }} {{ object.likes.count|pluralize:"Like,Likes" }}
+            </div>
+            <div class="my-2 flex-grow-1">{{ object.content_field|truncatewords_html:50|safe }}</div>
+            <a href="{% url 'detail_article' object.id %}" class="btn btn-outline-primary mt-auto w-100">Read More</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12 text-center">
+        <p class="text-muted">No articles found.</p>
+      </div>
+    {% endfor %}
   </div>
-</div>
-{% endfor %}
-<nav>
-  <ul class="pagination">
-    <div class="mx-auto d-flex flex-row mt-5">
+  <nav>
+    <ul class="pagination justify-content-center mt-5">
       {% if page_obj.has_previous %}
-      <li class="page-item">
-        <a href="?page=1" class="page-link">&laquo; First</a>
-      </li>
-      <li class='page-item'>
-        <a href="?page= {{page_obj.previous_page_number}}" class="page-link">Previous</a>
-      </li>
+        <li class="page-item">
+          <a href="?page=1" class="page-link">&laquo; First</a>
+        </li>
+        <li class='page-item'>
+          <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Previous</a>
+        </li>
       {% endif %}
-      <li class="page-item">
-        <a href="#" class="page-link"> Page {{page_obj.number}}</a>
+      <li class="page-item disabled">
+        <a href="#" class="page-link">Page {{ page_obj.number }}</a>
       </li>
       {% if page_obj.has_next %}
-      <li class="page-item">
-        <a href="?page= {{page_obj.next_page_number}}" class="page-link">Next &raquo; </a>
-      </li>
-      <li class="page-item">
-        <a href="?page={{page_obj.paginator.num_pages}}" class="page-link">Last &raquo;&raquo;</a>
-      </li>
+        <li class="page-item">
+          <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next &raquo;</a>
+        </li>
+        <li class="page-item">
+          <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">Last &raquo;&raquo;</a>
+        </li>
       {% endif %}
-    </div>
-  </ul>
-</nav>
+    </ul>
+  </nav>
+</div>
 {% endblock content %}
