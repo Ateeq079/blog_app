@@ -1,33 +1,48 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Upload</title>
-</head>
-<body>
-    <h2>Upload an Image</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Upload</button>
-    </form>
-
-    <h2>Uploaded Images</h2>
-    <ul>
-    {% for image in images %}
-        {% if image.image %}
-            <li>
-                {% if image.title %}
-                    <p>{{ image.title }}</p>
-                {% endif %}
-                <img src="{{ image.image.url }}" alt="{{ image.title|default:'Uploaded image' }}" width="200">
-            </li>
-        {% endif %}
-    {% empty %}
-        <li>No images uploaded yet.</li>
-    {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-12">
+      <div class="card shadow-lg border-0 mb-4">
+        <div class="card-body p-4">
+          <h2 class="mb-4 text-center">Upload an Image</h2>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary w-100">Upload</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-12">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h2 class="mb-4 text-center">Uploaded Images</h2>
+          <div class="row g-3">
+            {% for image in images %}
+              {% if image.image %}
+                <div class="col-md-4 col-6">
+                  <div class="card h-100 border-0 shadow-sm">
+                    {% if image.title %}
+                      <div class="card-header bg-primary text-white text-center py-2">
+                        {{ image.title }}
+                      </div>
+                    {% endif %}
+                    <img src="{{ image.image.url }}" alt="{{ image.title|default:'Uploaded image' }}" class="card-img-top img-fluid" style="max-height: 200px; object-fit: cover;"/>
+                  </div>
+                </div>
+              {% endif %}
+            {% empty %}
+              <div class="col-12 text-center">
+                <p class="text-muted">No images uploaded yet.</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

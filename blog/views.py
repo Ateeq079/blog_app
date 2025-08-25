@@ -48,13 +48,30 @@ class DetailArticleView(DetailView):
     
     def get_context_data(self, *args, **kwargs):
         context = super(DetailArticleView, self).get_context_data(*args, **kwargs)
-        
+
         context['liked_by_user'] = False
         article = Article.objects.get(id=self.kwargs.get('pk'))
+        context['comments'] = article.comments.all().order_by('date_posted')
         if article.likes.filter(pk=self.request.user.id).exists():
              context['liked_by_user'] = True
+        if 'form' not in context:
+            context['form'] = CommentForm
         return context
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        if not request.user.is_authenticated:
+            return redirect(f"{reverse('login')}?next={request.path}")
+        
+        form  = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = self.object
+            comment.author = request.user
+            comment.save()
+            return redirect(self.get_success_url())
+        return self.form_inavlid(form)
 
 class LikeArticle(View):
     def post(self , request, pk):

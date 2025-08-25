@@ -1,15 +1,16 @@
 # Blog_APP
 
-A full-featured Django-based blog application with user authentication, article management, image uploads, categories, and REST API support.
+A modern, full-featured Django-based blog application with user authentication, article management, unique image uploads per post, categories, REST API support, and a visually consistent, responsive Bootstrap UI.
 
 ## Features
 - User registration, login, and logout
 - Create, view, like, and delete blog articles
+- **Unique image per article** with badge/title overlay
 - Article categories and featured posts
-- Image upload and management
+- Image upload and management (with admin and user-facing display)
 - REST API endpoints for categories and users
-- Responsive templates using Django and Bootstrap
-- Admin interface for managing content
+- **Visually consistent, modern templates** using Django and Bootstrap
+- Admin interface for managing content with image previews
 
 ## Project Structure
 - `blog/` - Main blog app (articles, categories, images, views, templates)
@@ -34,7 +35,7 @@ A full-featured Django-based blog application with user authentication, article 
    ```
 2. **Install dependencies:**
    ```bash
-   pip install -r requirements
+   pip install -r requirements.txt
    ```
 3. **Configure the database:**
    - Update `blogsite/settings.py` with your PostgreSQL credentials or use SQLite for testing.
@@ -57,10 +58,16 @@ A full-featured Django-based blog application with user authentication, article 
 ## Usage
 - Register a new user or log in.
 - Create, view, and like articles.
-- Upload images to articles.
+- Upload a unique image to each article (with image title badge overlay in all views).
 - Browse articles by category or featured status.
-- Use the admin panel to manage users, articles, and categories.
+- Use the admin panel to manage users, articles, images, and categories (with image previews).
 - Access REST API endpoints at `/api/` (see `blog/urls.py` and `users/views.py`).
+
+## Image Handling & UI Consistency
+- Each article can have a unique image, managed via the admin or upload form.
+- Images are displayed with a badge overlay showing the image title (if present) on all article cards and detail pages.
+- All templates (index, featured, category, detail, delete, upload) use a consistent Bootstrap card-based layout, spacing, and meta info styling for a modern, unified look.
+- No-image placeholders are shown where appropriate.
 
 ## Dependencies
 - Django 5.2.5
@@ -74,4 +81,4 @@ A full-featured Django-based blog application with user authentication, article 
 MIT License (add your license here)
 
 ---
-*This project is a Django blog platform with REST API and modern features. Contributions welcome!*
+*This project is a Django blog platform with REST API, unique image handling, and a modern, visually consistent UI. Contributions welcome!*
