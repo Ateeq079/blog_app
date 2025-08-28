@@ -40,7 +40,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     
 class DetailArticleView(DetailView):
     model = Article
-    template_name = "blog/blog_Post.html"
+    template_name = "blog/blog_post.html"
     form_class = CommentForm
 
     def get_success_url(self):
