@@ -4,7 +4,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin , UserPassesTestMixin
 from django.conf import settings
 from django.views import View
 from django.views.generic import ListView, DetailView, DeleteView
-from django.views.generic.edit import FormMixin
 from .forms import ImageUploadForm , CommentForm
 from .models import Article, Category , ImageModel
 from .serializers import CategorySerializer
