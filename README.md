@@ -292,37 +292,3 @@ python manage.py migrate
 # Start production server
 gunicorn blogsite.wsgi:application
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🆘 Support
-
-For support and questions:
-- Create an issue in the repository
-- Check the Django documentation
-- Review the code comments for implementation details
-
-## 🔮 Future Enhancements
-
-- [ ] Complete tag system implementation
-- [ ] User profiles and avatars
-- [ ] Article search functionality
-- [ ] Email notifications for comments
-- [ ] Social media sharing
-- [ ] Article drafts and scheduling
-- [ ] Multi-language support
-- [ ] Advanced admin features
-
----
-
-**Built with ❤️ using Django, Bootstrap, and modern web technologies.**
