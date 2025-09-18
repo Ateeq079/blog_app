@@ -1,12 +1,13 @@
 from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import Index , DetailArticleView , LikeArticle, Featured, DeletePostView, CategoryView, ImageView , CategoryViewSet
+from .views import Index , DetailArticleView , LikeArticle, Featured, DeletePostView, CategoryView, ImageView , CategoryViewSet, ArticleViewSet
 #URL import for REST_API
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'categories', CategoryViewSet)
+router.register(r'articles', ArticleViewSet)
 
 
 urlpatterns = [

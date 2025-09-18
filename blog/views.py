@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView, DeleteView
 from .forms import ImageUploadForm , CommentForm
 from .models import Article, Category , ImageModel
-from .serializers import CategorySerializer
+from .serializers import CategorySerializer , ArticleSerializer
 #from rest_framework import
 from rest_framework import permissions, viewsets
 # Create your views here.
@@ -37,6 +37,10 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticated]
     
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    permission_classes = [permissions.IsAuthenticated]
 class DetailArticleView(DetailView):
     model = Article
     template_name = "blog/blog_post.html"
